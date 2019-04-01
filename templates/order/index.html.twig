@@ -7,14 +7,41 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-<div class="example-wrapper">
+<div role="main" class="ui-content">
     <h1>Hello {{ controller_name }}! ✅</h1>
+    <p>
+        {{ dump(result) }}
+    </p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/luke/Documents/Projects/my-project/src/Controller/OrderController.php'|file_link(0) }}">src/Controller/OrderController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/luke/Documents/Projects/my-project/templates/order/index.html.twig'|file_link(0) }}">templates/order/index.html.twig</a></code></li>
-    </ul>
+    <table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Add to Cart</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for r in result %}
+            <tr>
+                <td>{{r.item}}</td>
+                <td>{{r.price}}</td>
+                <td>
+                    <label for="quantity" class="ui-hidden-accessible">0</label>
+                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" value="">
+                </td>
+                <td>
+                    <input type="button" data-inline="true" value="Add to Cart">
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
 </div>
 {% endblock %}

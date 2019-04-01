@@ -12,16 +12,18 @@ use Symfony\Component\HttpFoundation\Response;
 class OrderController extends AbstractController
 {
     /**
-     * @Route("/order", name="order")
+     * @Route("/order", name="order") methods={"GET", "POST"}
      */
     public function index()
     {
-        $repo = $this->getDoctrine()->getRepository(product::class); // the type of the entity
+        $request = Request::createFromGlobals(); // the envelope, and were looking inside it.
+
+        $repo = $this->getDoctrine()->getRepository(Product::class); // the type of the entity
 
         $products = $repo->findAll();
 
         return $this->render('order/index.html.twig', [
-            'controller_name' => 'OrderController',
+            'controller_name' => 'OrderController', 'result' => $products
         ]);
     }
 }
