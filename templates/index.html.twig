@@ -25,6 +25,7 @@
 
 	<div role="main" class="ui-content">
 		<h2>Welcome!</h2>
+    <p>{{ seshID }}</p>
 
 		<br>
         Welcome to the application, login or register.
@@ -47,8 +48,9 @@
 
   <div role="main" class="ui-content">
     <h2>Register</h2>
+    <p>{{ seshID }}</p>
     Username <input type="text" name="register_username" id="register_username" value="">
-    Password <input type="text" name="register_pass" id="register_pass" value="">
+    Password <input type="password" name="register_pass" id="register_pass" value="">
     AccType <input type="text" name="acctype" id="acctype" value="">
     <button class="ui-btn" id="registerButton">Submit</button>
   </div>
@@ -65,8 +67,9 @@
 
     <div role="main" class="ui-content">
 		<h2>Login</h2>
-	   Username <input type="text" name="login_username" id="login_username" value="">
-       Password <input type="text" name="login_pass" id="login_pass" value="">
+    <p>{{ seshID }}</p>
+	    Username <input type="text" name="login_username" id="login_username" value="">
+      Password <input type="password" name="login_pass" id="login_pass" value="">
     	<button class="ui-btn" id="loginButton">Login</button>              
 	</div><!-- /content -->
 </div>
@@ -91,6 +94,7 @@
 <div data-role="page" id="customer" data-theme="a">
     <div data-role="header">
 		<h1>Customer</h1>
+    <p>{{ seshID }}</p>
     </div><!-- /header -->
     <div role="main" class="ui-content">
       <a href="{{ path('order') }}" class="ui-btn ui-shadow ui-corner-all">Place an Order</a>

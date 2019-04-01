@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class IndexController extends AbstractController
 {
@@ -12,7 +14,9 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-       
-        return $this->render('index.html.twig');
+        $session = new Session();
+        $session->set('name', 'Luke');
+
+        return $this->render('index.html.twig', ['seshID'=>$session->get('name')]);
     }
 }

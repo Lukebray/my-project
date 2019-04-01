@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Login;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;   
+use Symfony\Component\HttpFoundation\Response;  
 
 class Backend extends AbstractController
 {
@@ -15,11 +15,14 @@ class Backend extends AbstractController
      */
     public function index()
     {
+        
         $request = Request::createFromGlobals(); // the envelope, and were looking inside it.
 
         $type = $request->request->get('type', 'none'); // to send ourself in different directions
         
         if($type == 'register'){
+            //start session
+            
             // perform register process
             
             // get the variables

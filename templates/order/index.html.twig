@@ -36,7 +36,7 @@
                     <input type="text" name="quantity" id="quantity" placeholder="Quantity" value="">
                 </td>
                 <td>
-                    <input type="button" data-inline="true" value="Add to Cart">
+                    <a href="{{path('OrderController/addToCart')}}"<input type="button" data-inline="true" value="Add to Cart">
                 </td>
             </tr>
         {% endfor %}

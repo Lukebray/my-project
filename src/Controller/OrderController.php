@@ -25,5 +25,5 @@ class OrderController extends AbstractController
         return $this->render('order/index.html.twig', [
             'controller_name' => 'OrderController', 'result' => $products
         ]);
-    }
+    } 
 }
