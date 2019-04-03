@@ -12,12 +12,112 @@
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 <div role="main" class="ui-content">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    <p>
-        {{ dump(result) }}
-    </p>
+    <div>
+        {{dump(result)}}
+    </div>
 
-    <table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive">
+    <script>
+    class Product {
+        constructor(id, name, price, qty) {
+            this.id = id;
+            this.name = name;
+            this.price = price; 
+            this.qty = qty;
+        }
+    }
+    </script>
+
+    <!-- DEFINE THE PRODUCTS -->
+    <script>
+    var hawaiian = new Product(1, "Hawaiian Pizza", 10, 0);
+    var newYorker = new Product(2, "New Yorker", 10, 0);
+    var houseSpecial = new Product(3, "House Special", 10, 0);
+    </script>
+
+    <script>console.log(hawaiian);</script>
+
+    <div role="content" class="ui-content">
+        <table data-role="table" id="product-table" data-mode="reflow" class="ui-responsive">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <th>Hawaiian Pizza</th>
+                    <th>
+                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="minus"></button>
+                        <span id="qty">0</span>
+                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="plus"></button>
+                    </th>
+                    <th>
+                        <span id="price">10</span>
+                    </th>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div role="content" class="ui-content">     
+        <button id="addToCart">Add to Cart</button>
+        <button id="removeFromCart">Remove from Cart</button>
+        <button id="viewCart">View Cart</button>
+    </div>
+
+    <script>
+    var cart = [];
+
+    $("#plus").click(function() {
+        hawaiian.qty = hawaiian.qty + 1;
+        document.getElementById("qty").innerHTML = hawaiian.qty;
+        console.log(hawaiian.qty);
+    })
+
+    $("#minus").click(function() {
+        hawaiian.qty = hawaiian.qty - 1;
+        document.getElementById("qty").innerHTML = hawaiian.qty;
+    })
+
+    $("#addToCart").click(function() {
+        var qty = $('#qty').val();
+        for (var i=0; i < qty; i++){
+            cart.push(prod)
+        }
+        console.log(cart);    
+    })
+
+    $("#removeFromCart").click(function() {
+        var index = cart.indexOf(prod);
+        if (index > -1) {
+            cart.splice(index, 1);
+        }
+        console.log(cart);
+    })
+
+    $("#viewCart").click(function(){
+        var content = '';
+        for (var i=0; i < cart.length; i++) {
+            content = content + ' - ' + cart[i] + "<br>";
+        }
+        $("#myCart").html("Your cart contains: <br>" + content);
+    })
+
+    
+    </script>
+
+    <div id="myCart">
+    </div>
+
+<!--
+    {#{% for r in result %}
+    <div id="item-div{{loop.index}}">
+        <table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive">
         <thead>
             <tr>
                 <th>Item</th>
@@ -27,21 +127,22 @@
             </tr>
         </thead>
     <tbody>
-        {% for r in result %}
             <tr>
-                <td>{{r.item}}</td>
-                <td>{{r.price}}</td>
+                <td>#{{r.item}}#</td>
+                <td>#{{r.price}}#</td>
                 <td>
                     <label for="quantity" class="ui-hidden-accessible">0</label>
-                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" value="">
+                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" value="">            
                 </td>
                 <td>
-                    <a href="{{path('OrderController/addToCart')}}"<input type="button" data-inline="true" value="Add to Cart">
+                    <input type="button" id="addToCart" data-inline="true" value="Add to Cart">                             
                 </td>
             </tr>
-        {% endfor %}
     </tbody>
     </table>
+    </div>
+    {% endfor %}#}
+    -->
 
 </div>
 {% endblock %}
