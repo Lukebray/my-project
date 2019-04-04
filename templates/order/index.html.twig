@@ -25,16 +25,19 @@
             this.qty = qty;
         }
     }
-    </script>
 
-    <!-- DEFINE THE PRODUCTS -->
-    <script>
-    var hawaiian = new Product(1, "Hawaiian Pizza", 10, 0);
+    //DEFINE THE PRODUCTS//
+    var productsList = [];
+    var hawaiian = new Product(1, "Hawaiian", 10, 0);
+    productsList.push(hawaiian);
     var newYorker = new Product(2, "New Yorker", 10, 0);
+    productsList.push(newYorker);
     var houseSpecial = new Product(3, "House Special", 10, 0);
+    productsList.push(houseSpecial);
+    console.log(productsList);
+    console.log((productsList[1].name).replace(/\s/g, ''));
+    console.log(("#"+(hawaiian.name).replace(/\s/g, '')+"Qty"));
     </script>
-
-    <script>console.log(hawaiian);</script>
 
     <div role="content" class="ui-content">
         <table data-role="table" id="product-table" data-mode="reflow" class="ui-responsive">
@@ -50,9 +53,33 @@
                 <tr>
                     <th>Hawaiian Pizza</th>
                     <th>
-                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="minus"></button>
-                        <span id="qty">0</span>
-                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="plus"></button>
+                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="HawaiianMinus"></button>
+                        <span id="HawaiianQty">0</span>
+                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="HawaiianPlus"></button>
+                    </th>
+                    <th>
+                        <span id="price">10</span>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>New Yorker</th>
+                    <th>
+                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="NewYorkerMinus"></button>
+                        <span id="NewYorkerQty">0</span>
+                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="NewYorkerPlus"></button>
+                    </th>
+                    <th>
+                        <span id="price">10</span>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>House Special</th>
+                    <th>
+                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="HouseSpecialMinus"></button>
+                        <span id="HouseSpecialQty">0</span>
+                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="HouseSpecialPlus"></button>
                     </th>
                     <th>
                         <span id="price">10</span>
@@ -72,77 +99,90 @@
 
     <script>
     var cart = [];
-
-    $("#plus").click(function() {
-        hawaiian.qty = hawaiian.qty + 1;
-        document.getElementById("qty").innerHTML = hawaiian.qty;
-        console.log(hawaiian.qty);
-    })
-
-    $("#minus").click(function() {
-        hawaiian.qty = hawaiian.qty - 1;
-        document.getElementById("qty").innerHTML = hawaiian.qty;
-    })
-
-    $("#addToCart").click(function() {
-        var qty = $('#qty').val();
-        for (var i=0; i < qty; i++){
-            cart.push(prod)
+    var content = '';
+    function updateCart(item) {
+        if (item.qty >= 2) {
+            content = item.name + " " + item.qty + " Price: " + (item.qty * item.price) + "<br>";
         }
-        console.log(cart);    
-    })
-
-    $("#removeFromCart").click(function() {
-        var index = cart.indexOf(prod);
-        if (index > -1) {
-            cart.splice(index, 1);
-        }
-        console.log(cart);
-    })
-
-    $("#viewCart").click(function(){
-        var content = '';
-        for (var i=0; i < cart.length; i++) {
-            content = content + ' - ' + cart[i] + "<br>";
-        }
+        else if (item.qty >=1) {
+            content = content + item.name + " " + item.qty + " Price: " + (item.qty * item.price) + "<br>";
+        } 
         $("#myCart").html("Your cart contains: <br>" + content);
-    })
+    }
+
+    function plusOne(item) {
+        if (item.qty < 10) {
+            item.qty = item.qty + 1;
+            document.getElementById((item.name).replace(/\s/g, '')+"Qty").innerHTML = item.qty;
+            console.log(item.qty);
+        }
+    }
+
+    function minusOne(item) {
+        if (item.qty > 0) {
+            item.qty = item.qty - 1;
+            document.getElementById((item.name).replace(/\s/g, '')+"Qty").innerHTML = item.qty;
+            console.log(item.qty);
+        }
+    }
+
+    $("#HawaiianPlus").click(function() {
+        plusOne(hawaiian);
+        updateCart(hawaiian);
+
+    });
+
+    $("#HawaiianMinus").click(function() {
+        minusOne(hawaiian);
+        updateCart(hawaiian);
+    });
+
+    $("#NewYorkerPlus").click(function() {
+        plusOne(newYorker);
+        updateCart(newYorker);
+
+    });
+
+    $("#NewYorkerMinus").click(function() {
+        minusOne(newYorker);
+        updateCart(newYorker);
+    });
+
+    $("#HouseSpecialPlus").click(function() {
+        plusOne(houseSpecial);
+        updateCart(houseSpecial);
+
+    });
+
+    $("#HouseSpecialMinus").click(function() {
+        minusOne(houseSpecial);
+        updateCart(houseSpecial);
+    });
 
     
+
+    
+    // $("#HawaiianPlus").click(function() {
+    //     if (hawaiian.qty < 10) {
+    //         hawaiian.qty = hawaiian.qty + 1;
+    //         document.getElementById("HawaiianQty").innerHTML = hawaiian.qty;
+    //         updateCart();
+    //         console.log(hawaiian.qty);
+    //     }
+    // })
+
+    // $("#HawaiianMinus").click(function() {
+    //     if (hawaiian.qty > 0) {
+    //         hawaiian.qty = hawaiian.qty - 1;
+    //         document.getElementById("HawaiianQty").innerHTML = hawaiian.qty;
+    //         updateCart();
+    //         console.log(hawaiian.qty);
+    //     }
+    // });
+
     </script>
 
     <div id="myCart">
     </div>
-
-<!--
-    {#{% for r in result %}
-    <div id="item-div{{loop.index}}">
-        <table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Add to Cart</th>
-            </tr>
-        </thead>
-    <tbody>
-            <tr>
-                <td>#{{r.item}}#</td>
-                <td>#{{r.price}}#</td>
-                <td>
-                    <label for="quantity" class="ui-hidden-accessible">0</label>
-                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" value="">            
-                </td>
-                <td>
-                    <input type="button" id="addToCart" data-inline="true" value="Add to Cart">                             
-                </td>
-            </tr>
-    </tbody>
-    </table>
-    </div>
-    {% endfor %}#}
-    -->
-
 </div>
 {% endblock %}
