@@ -11,10 +11,14 @@
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
+<div data-role="header" class="ui-bar"> 
+	<h1>Place an Order</h1> 
+</div> 
+
 <div role="main" class="ui-content">
-    <div>
+    {# <div>
         {{dump(result)}}
-    </div>
+    </div> #}
 
     <script>
     class Product {
@@ -92,22 +96,38 @@
     </div>
 
     <div role="content" class="ui-content">     
-        <button id="addToCart">Add to Cart</button>
-        <button id="removeFromCart">Remove from Cart</button>
-        <button id="viewCart">View Cart</button>
+        <button id="addToCart" class="ui-btn">Add to Cart</button>
+        <button id="removeFromCart" class="ui-btn">Remove from Cart</button>
+        <a href="#leftpanel1"><button id="viewCart" class="ui-btn">View Cart</button></a>
     </div>
 
     <script>
-    var cart = [];
-    var content = '';
+    var content = [];
     function updateCart(item) {
-        if (item.qty >= 2) {
-            content = item.name + " " + item.qty + " Price: " + (item.qty * item.price) + "<br>";
+        console.log(item);
+        var index = content.findIndex(i => i.id == item.id);
+        console.info(index, 'index');
+        if (index != -1) {
+            content.splice(index, 1);
+            content.push(item);
+        } else {
+            content.push(item);
         }
-        else if (item.qty >=1) {
-            content = content + item.name + " " + item.qty + " Price: " + (item.qty * item.price) + "<br>";
-        } 
-        $("#myCart").html("Your cart contains: <br>" + content);
+        console.log(content);
+        var itemNames = [];
+        var itemQty = [];
+        var printedContent = [];
+        var node = document.createElement("LI");
+        var textnode = document.createTextNode(item.name);
+        var x;
+        content.forEach(function(item) {
+            node.appendChild(textnode);
+            document.getElementById("list").appendChild(node);
+        });
+        //     printedContent.push(item.name + " " + item.qty + " Price: " + (item.qty * item.price) + "<br>");
+        // });
+        
+        // // $("#myCart").html("Your cart contains: <br>" + printedContent);
     }
 
     function plusOne(item) {
@@ -129,7 +149,6 @@
     $("#HawaiianPlus").click(function() {
         plusOne(hawaiian);
         updateCart(hawaiian);
-
     });
 
     $("#HawaiianMinus").click(function() {
@@ -161,7 +180,17 @@
 
     </script>
 
-    <div id="myCart">
-    </div>
+    <div data-role="panel" id="leftpanel1" data-position="left" data-display="reveal" data-theme="b">
+        <h3>Your Cart</h3>
+ 
+        <div id="myCart">
+            <ul id="list">
+
+            </ul>
+        <div>
+        <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ui-btn-inline">Close</a>
+
+	</div>
+
 </div>
 {% endblock %}
