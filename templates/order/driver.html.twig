@@ -12,38 +12,18 @@
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 <body>
-        <div data-role="header" class="ui-bar">
-            <h1>Driver Orders</h1>
-        </div>
-        <div role="page" class="ui-content" id="mainpage">
-            <div role="content" class="ui-content">
-                {{ dump(orders) }}
-            </div>
-        
-            
+    <div data-role="header" class="ui-bar">
+        <h1>Driver Orders</h1>
+    </div>
+    <div role="page" class="ui-content" id="mainpage">
+        {{dump(orders)}}
 
-            <div data-role="collapsible" id="collapse">
-                <h3>Your Cart</h3>
-                <div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody id="test">
-                            
-                        </tbody>
-                    </table>
-                </div>
-                <br>
-                <div id="total"></div>
-                <button class="ui-btn ui-btn-inline" id="checkout">Checkout</button>
+        <div role="content" class="ui-content">
                 
-                <div id="total"></div>
-            </div>
         </div>
+
+        
+    </div>
     </body>
 
 {% endblock %}
