@@ -37,6 +37,7 @@ class Backend extends AbstractController
               $user->setUsername($username);
               $user->setPassword($password);
               $user->setAcctype($acctype);
+              $user->setStatus("Active");
 
              $entityManager->persist($user);
 
@@ -49,7 +50,7 @@ class Backend extends AbstractController
         }
         
         else if($type == 'login'){ // if we had a login
-             
+
             // get the username and password
             $username = $request->request->get('username', 'none');
             $password = $request->request->get('password', 'none');

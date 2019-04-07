@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,56 +17,25 @@ class Login
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $username;
-    
+
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status;
-    
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $acctype;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="customerId", orphanRemoval=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $orders;
+    private $status;
 
-    public function __construct()
-    {
-        $this->orders = new ArrayCollection();
-    }
-
-    
-    
-   public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-    
-    
-    
-    
-    
-    
-    
     public function getId(): ?int
     {
         return $this->id;
@@ -79,7 +46,7 @@ class Login
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -91,7 +58,7 @@ class Login
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -103,40 +70,21 @@ class Login
         return $this->acctype;
     }
 
-    public function setAcctype(string $acctype): self
+    public function setAcctype(?string $acctype): self
     {
         $this->acctype = $acctype;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Order[]
-     */
-    public function getOrders(): Collection
+    public function getStatus(): ?string
     {
-        return $this->orders;
+        return $this->status;
     }
 
-    public function addOrder(Order $order): self
+    public function setStatus(?string $status): self
     {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->setCustomerId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Order $order): self
-    {
-        if ($this->orders->contains($order)) {
-            $this->orders->removeElement($order);
-            // set the owning side to null (unless already changed)
-            if ($order->getCustomerId() === $this) {
-                $order->setCustomerId(null);
-            }
-        }
+        $this->status = $status;
 
         return $this;
     }

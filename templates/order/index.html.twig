@@ -84,26 +84,26 @@
             </div>
         
             <script>
-            var order = [];
+            var orderarr = [];
             var totalPrice = 0;
             function updateCart(item) {
-                var index = order.findIndex(i => i.id == item.id);
+                var index = orderarr.findIndex(i => i.id == item.id);
                 if (index != -1) {
-                    order.splice(index, 1);
-                    order.push(item);
+                    orderarr.splice(index, 1);
+                    orderarr.push(item);
                     totalPrice = item.qty * item.price;
                     
                 } else {
-                    order.push(item);
+                    orderarr.push(item);
                     totalPrice = totalPrice + (item.qty * item.price);
                 }
                 const singleRow = ({ name, qty }) => `<tr><td>${name}</td><td>${qty}</td></tr>`;
-                $("#test").html(order.map(singleRow).join(''));  
-                console.log(order);
+                $("#test").html(orderarr.map(singleRow).join(''));  
+                console.log(orderarr);
                 $("#total").html(totalPrice);
             }
 
-            for (item in order) {
+            for (item in orderarr) {
                 var cost = item.qty * item.price;
                 totalPrice = totalPrice + cost;
             }
@@ -182,7 +182,7 @@
 
         <script>
             $("#checkout").click(function() {
-                $.post("/ordersubmit", {order: order, amount: totalPrice})
+                $.post("/ordersubmit", {buy: orderarr, amount: totalPrice})
                 .done(function() {
                     alert("Thank you, your order has been submitted m8."); 
                 });                      
