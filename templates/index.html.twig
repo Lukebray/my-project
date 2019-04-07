@@ -77,12 +77,27 @@
     <div data-role="header">
 		<h1>Driver</h1>
     </div><!-- /header -->
+
     <div role="main" class="ui-content">
-		<p>Hello driver</p>
+      <a href="{{ path('driver') }}" class="ui-btn ui-shadow ui-corner-all">See Orders</a>
+      <h2>Orders for Delivery</h2>
+
+      <table data-role="table">
+        <thead>
+          <tr>
+            <th>Order No.</th>
+            <th>Deliver Address</th>
+            <th>Update Status</th>
+          </tr>
+        </thead>
+        <tbody id="driverOrders">
+        
+        </tbody>
+
+      </table>
 	</div><!-- /content -->
 </div>
 <!-- END OF DRIVER PAGE -->
-
 
 
 <!-- CUSTOMER PAGE -->

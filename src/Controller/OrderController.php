@@ -55,4 +55,15 @@ class OrderController extends AbstractController
             
         
     }
+
+    /**
+     * @Route ("/driver", name="driver") methods={"GET", "POST"}
+     */
+    public function driverOrders() {
+
+        $repo = $this->getDoctrine()->getRepository(Order::class);
+        $orders = $repo->findAll();
+
+        return $this->render('order/driver.html.twig', ['orders'=>$orders]);
+    }
 }

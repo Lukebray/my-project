@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<body>
+        <div data-role="header" class="ui-bar">
+            <h1>Driver Orders</h1>
+        </div>
+        <div role="page" class="ui-content" id="mainpage">
+            <div role="content" class="ui-content">
+                {{ dump|orders }}
+            </div>
+        
+            
+
+            <div data-role="collapsible" id="collapse">
+                <h3>Your Cart</h3>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="test">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div id="total"></div>
+                <button class="ui-btn ui-btn-inline" id="checkout">Checkout</button>
+                
+                <div id="total"></div>
+            </div>
+        </div>
+    </body>
+
+{% endblock %}
