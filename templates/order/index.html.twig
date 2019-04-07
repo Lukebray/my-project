@@ -11,186 +11,197 @@
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-<div data-role="header" class="ui-bar"> 
-	<h1>Place an Order</h1> 
-</div> 
-
-<div role="main" class="ui-content">
-    {# <div>
-        {{dump(result)}}
-    </div> #}
-
-    <script>
-    class Product {
-        constructor(id, name, price, qty) {
-            this.id = id;
-            this.name = name;
-            this.price = price; 
-            this.qty = qty;
+<body>
+        <div data-role="header" class="ui-bar">
+            <h1>Place an Order</h1>
+        </div>
+        <div role="page" class="ui-content">
+            <script>
+            class Product {
+                constructor(id, name, price, qty) {
+                this.id = id;
+                this.name = name;
+                this.price = price; 
+                this.qty = qty;
+            }
         }
-    }
 
-    //DEFINE THE PRODUCTS//
-    var productsList = [];
-    var hawaiian = new Product(1, "Hawaiian", 10, 0);
-    productsList.push(hawaiian);
-    var newYorker = new Product(2, "New Yorker", 10, 0);
-    productsList.push(newYorker);
-    var houseSpecial = new Product(3, "House Special", 10, 0);
-    productsList.push(houseSpecial);
-    console.log(productsList);
-    console.log((productsList[1].name).replace(/\s/g, ''));
-    console.log(("#"+(hawaiian.name).replace(/\s/g, '')+"Qty"));
-    </script>
+            //DEFINE THE PRODUCTS//
+            var productsList = [];
+            var hawaiian = new Product(1, "Hawaiian", 10, 0);
+            productsList.push(hawaiian);
+            var newYorker = new Product(2, "New Yorker", 10, 0);
+            productsList.push(newYorker);
+            var houseSpecial = new Product(3, "House Special", 10, 0);
+            productsList.push(houseSpecial);
+            </script>
 
-    <div role="content" class="ui-content">
-        <table data-role="table" id="product-table" data-mode="reflow" class="ui-responsive">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <th>Hawaiian Pizza</th>
-                    <th>
-                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="HawaiianMinus"></button>
-                        <span id="HawaiianQty">0</span>
-                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="HawaiianPlus"></button>
-                    </th>
-                    <th>
-                        <span id="price">10</span>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th>New Yorker</th>
-                    <th>
-                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="NewYorkerMinus"></button>
-                        <span id="NewYorkerQty">0</span>
-                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="NewYorkerPlus"></button>
-                    </th>
-                    <th>
-                        <span id="price">10</span>
-                    </th>
-                </tr>
-
-                <tr>
-                    <th>House Special</th>
-                    <th>
-                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="HouseSpecialMinus"></button>
-                        <span id="HouseSpecialQty">0</span>
-                        <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="HouseSpecialPlus"></button>
-                    </th>
-                    <th>
-                        <span id="price">10</span>
-                    </th>
-                </tr>
-            </tbody>
-
-        </table>
-
-    </div>
-
-    <div role="content" class="ui-content">     
-        <button id="addToCart" class="ui-btn">Add to Cart</button>
-        <button id="removeFromCart" class="ui-btn">Remove from Cart</button>
-        <a href="#leftpanel1"><button id="viewCart" class="ui-btn">View Cart</button></a>
-    </div>
-
-    <script>
-    var content = [];
-    function updateCart(item) {
-        console.log(item);
-        var index = content.findIndex(i => i.id == item.id);
-        console.info(index, 'index');
-        if (index != -1) {
-            content.splice(index, 1);
-            content.push(item);
-        } else {
-            content.push(item);
-        }
-        console.log(content);
-        var itemNames = [];
-        var itemQty = [];
-        var printedContent = [];
-        var node = document.createElement("LI");
-        var textnode = document.createTextNode(item.name);
-        var x;
-        content.forEach(function(item) {
-            node.appendChild(textnode);
-            document.getElementById("list").appendChild(node);
-        });
-        //     printedContent.push(item.name + " " + item.qty + " Price: " + (item.qty * item.price) + "<br>");
-        // });
+            <div role="content" class="ui-content">
+                <table data-role="table" id="product-table" data-mode="reflow" class="ui-responsive">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Hawaiian Pizza</th>
+                            <th>
+                                <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="HawaiianMinus"></button>
+                                <span id="HawaiianQty">0</span>
+                                <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="HawaiianPlus"></button>
+                            </th>
+                            <th>
+                                <span id="price">10</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>New Yorker</th>
+                            <th>
+                                <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="NewYorkerMinus"></button>
+                                <span id="NewYorkerQty">0</span>
+                                <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="NewYorkerPlus"></button>
+                            </th>
+                            <th>
+                                <span id="price">10</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>House Special</th>
+                            <th>
+                                <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-minus ui-btn-icon-notext ui-btn-a ui-mini" id="HouseSpecialMinus"></button>
+                                <span id="HouseSpecialQty">0</span>
+                                <button class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-a ui-mini" id="HouseSpecialPlus"></button>
+                            </th>
+                            <th>
+                                <span id="price">10</span>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         
-        // // $("#myCart").html("Your cart contains: <br>" + printedContent);
-    }
+            <script>
+            var order = [];
+            var totalPrice = 0;
+            function updateCart(item) {
+                var index = order.findIndex(i => i.id == item.id);
+                if (index != -1) {
+                    order.splice(index, 1);
+                    order.push(item);
+                    totalPrice = item.qty * item.price;
+                    
+                } else {
+                    order.push(item);
+                    totalPrice = totalPrice + (item.qty * item.price);
+                }
+                const singleRow = ({ name, qty }) => `<tr><td>${name}</td><td>${qty}</td></tr>`;
+                $("#test").html(order.map(singleRow).join(''));  
+                console.log(order);
+                $("#total").html(totalPrice);
+            }
 
-    function plusOne(item) {
-        if (item.qty < 10) {
-            item.qty = item.qty + 1;
-            document.getElementById((item.name).replace(/\s/g, '')+"Qty").innerHTML = item.qty;
-            console.log(item.qty);
-        }
-    }
+            for (item in order) {
+                var cost = item.qty * item.price;
+                totalPrice = totalPrice + cost;
+            }
+            $("#total").html(totalPrice);
 
-    function minusOne(item) {
-        if (item.qty > 0) {
-            item.qty = item.qty - 1;
-            document.getElementById((item.name).replace(/\s/g, '')+"Qty").innerHTML = item.qty;
-            console.log(item.qty);
-        }
-    }
+            function plusOne(item) {
+                if (item.qty < 10) {
+                    item.qty = item.qty + 1;
+                    document.getElementById((item.name).replace(/\s/g, '')+"Qty").innerHTML = item.qty;
+                }
+            }
 
-    $("#HawaiianPlus").click(function() {
-        plusOne(hawaiian);
-        updateCart(hawaiian);
-    });
+            function minusOne(item) {
+                if (item.qty > 0) {
+                    item.qty = item.qty - 1;
+                    document.getElementById((item.name).replace(/\s/g, '')+"Qty").innerHTML = item.qty;
+                }
+            }
 
-    $("#HawaiianMinus").click(function() {
-        minusOne(hawaiian);
-        updateCart(hawaiian);
-    });
+            $("#HawaiianPlus").click(function() {
+                plusOne(hawaiian);
+                updateCart(hawaiian);
+            });
 
-    $("#NewYorkerPlus").click(function() {
-        plusOne(newYorker);
-        updateCart(newYorker);
+            $("#HawaiianMinus").click(function() {
+                minusOne(hawaiian);
+                updateCart(hawaiian);
+            });
 
-    });
+            $("#NewYorkerPlus").click(function() {
+                plusOne(newYorker);
+                updateCart(newYorker);
 
-    $("#NewYorkerMinus").click(function() {
-        minusOne(newYorker);
-        updateCart(newYorker);
-    });
+            });
 
-    $("#HouseSpecialPlus").click(function() {
-        plusOne(houseSpecial);
-        updateCart(houseSpecial);
+            $("#NewYorkerMinus").click(function() {
+                minusOne(newYorker);
+                updateCart(newYorker);
+            });
 
-    });
+            $("#HouseSpecialPlus").click(function() {
+                plusOne(houseSpecial);
+                updateCart(houseSpecial);
 
-    $("#HouseSpecialMinus").click(function() {
-        minusOne(houseSpecial);
-        updateCart(houseSpecial);
-    });
+            });
 
-    </script>
+            $("#HouseSpecialMinus").click(function() {
+                minusOne(houseSpecial);
+                updateCart(houseSpecial);
+            });
 
-    <div data-role="panel" id="leftpanel1" data-position="left" data-display="reveal" data-theme="b">
-        <h3>Your Cart</h3>
- 
-        <div id="myCart">
-            <ul id="list">
+            </script>
 
-            </ul>
-        <div>
-        <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ui-btn-inline">Close</a>
+            <div data-role="collapsible" id="collapse">
+                <h3>Your Cart</h3>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="test">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div id="total"></div>
+                <button class="ui-btn ui-btn-inline" id="checkout">Checkout</button>
+                
+                <div id="total"></div>
+            </div>
 
-	</div>
+            {# <div data-role="panel" id="leftpanel1" data-position="left" data-display="reveal" data-theme="b" data-dismissable="false">
+                
+                <div id="total"></div>
+                <script>
+                    $("checkout").click(function() {
+                        $.post("/submit", {order: order})
+                        .done(function() {
+                            alert("Thank you, your order has been submitted m8."); 
+                        });                      
+                    });
+                </script>
+                
+            </div> #}
+        </div>
 
-</div>
+        <script>
+            $("#checkout").click(function() {
+                $.post("/ordersubmit", {order: order, amount: totalPrice})
+                .done(function() {
+                    alert("Thank you, your order has been submitted m8."); 
+                });                      
+            });
+        </script>
+    </body>
+
 {% endblock %}
