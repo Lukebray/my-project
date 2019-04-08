@@ -36,7 +36,7 @@ class OrderController extends AbstractController
         $myOrder = new Buys();
         // $myOrder->setTimeOfOrder(DateTimeInterface::ATOM);
         $myOrder->setAmount($amount);
-        $myOrder->setOrderstatus("On the way");
+        $myOrder->setOrderstatus("In Progress");
         $myOrder->setOrderaddress("123 Fake Street Dublin");
 
         $entityManager->persist($myOrder);
