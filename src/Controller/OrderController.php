@@ -36,7 +36,7 @@ class OrderController extends AbstractController
         $myOrder = new Buys();
         // $myOrder->setTimeOfOrder(DateTimeInterface::ATOM);
         $myOrder->setAmount($amount);
-        $myOrder->setOrderstatus("In Progress");
+        $myOrder->setOrderstatus("Order Submitted");
         $myOrder->setOrderaddress("123 Fake Street Dublin");
 
         $entityManager->persist($myOrder);
@@ -56,8 +56,38 @@ class OrderController extends AbstractController
 
         $repo = $this->getDoctrine()->getRepository(Buys::class);
 
-        $orders = $repo->findAll();
+        $orders = $repo->findBy(array('orderstatus' => array('submitted', 'outfordelivery')));
 
         return $this->render('order/driver.html.twig', ['orders'=>$orders]);
     }
+
+    /**
+     * @Route ("/updateOrder", name="updateOrder") methods={"GET", "POST"}
+     */
+
+     public function updateOrder() {
+
+        $request = Request::createFromGlobals(); // the envelope, and were looking inside it.
+        $orderID = $request->request->get('orderid', 'none');
+        $orderStatus = $request->request->get('orderStatus', 'none');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        $orderToUpdate = $entityManager->getRepository(Buys::class)->find($orderID);
+
+        if(!$orderToUpdate){
+            throw $this->createNotFoundException(
+                'No order found for id '.$orderStatus
+            );
+        }
+
+        $orderToUpdate->setOrderStatus($orderStatus);
+        $entityManager->persist($orderToUpdate);
+        $entityManager->flush();
+
+        $repo = $this->getDoctrine()->getRepository(Buys::class);
+        $orders = $repo->findBy(array('orderstatus' => array('submitted', 'outfordelivery')));
+        
+        return $this->render('order/driver.html.twig', ['orders'=>$orders]);
+     }
 }

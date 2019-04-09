@@ -72,7 +72,7 @@
 
 
 
-<!-- DRIVER PAGE -->
+{# <!-- DRIVER PAGE -->
 <div data-role="page" id="driver" data-theme="a">
     <div data-role="header">
 		<h1>Driver</h1>
@@ -80,10 +80,11 @@
 
     <div role="main" class="ui-content">
       <a href="{{ path('driver') }}" class="ui-btn ui-shadow ui-corner-all">See Orders</a>
+      
     
 	</div><!-- /content -->
 </div>
-<!-- END OF DRIVER PAGE -->
+<!-- END OF DRIVER PAGE --> #}
 
 
 <!-- CUSTOMER PAGE -->
@@ -123,13 +124,11 @@ $( "#loginButton" ).click(function() {
       
     $.post( "/backend", { type: "login", username:un, password:pw})
     .done(function( data ) {
-    	alert( "Data Loaded: " + data );
-        
         if(data == 'customer'){
             window.location="/index#customer";
         }
         else if(data == 'driver'){
-            window.location="/index#driver";
+            window.location="/driver";
         }     
 		else if(data == 'manager'){
             window.location="/index#manager";
