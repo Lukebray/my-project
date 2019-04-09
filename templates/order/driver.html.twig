@@ -17,10 +17,12 @@ function updateOrder(id, val) {
 };
 </script>
 <body>
-    <div data-role="header" class="ui-bar">
-        <h1>Driver Orders</h1>
-    </div>
-    <div role="page" class="ui-content" id="mainpage">
+<!-- START OF MAIN PAGE -->
+    <div data-role="page" class="ui-content" id="mainpage">
+        <div data-role="header" class="ui-bar" id="main">
+            <h1>Driver Orders</h1>
+        </div>
+
         <a href="#weather" class="ui-btn ui-btn-inline" id="weathere">Check Weather</a>
         {{dump(orders)}}
         <div role="content" class="ui-content">
@@ -56,17 +58,92 @@ function updateOrder(id, val) {
                 {% endfor %}
         </div>
     </div>
-
+<!-- END OF MAIN PAGE -->
     <script>
-    $('[id^="statusselect"]').change(function () {
-        var orderid = $(this).attr('orderNo');
-        var orderStatus = $(this).children("option:selected").val();
-        
-        alert("You have selected value from order no. " + orderid + " with status of " + orderStatus);      
-        updateOrder(orderid, orderStatus);
-    });
-
+        $('[id^="statusselect"]').change(function () {
+            var orderid = $(this).attr('orderNo');
+            var orderStatus = $(this).children("option:selected").val();
+            
+            alert("You have selected value from order no. " + orderid + " with status of " + orderStatus);      
+            updateOrder(orderid, orderStatus);
+        });
     </script>
+
+<!-- START OF WEATHER PAGE -->
+    <div data-role="page" id="weather" class="ui-content">
+        <div data-role="header" class="ui-bar" id="main">
+            <h1>Driver Orders</h1>
+        </div>
+    
+        <div id="currentweather">
+            <h1 id="temp"></h1>
+            <h1 id="icywarning"></h1>
+            <h2 id="roadsarefine"></h2>
+        </div>
+    </div>
+<!-- END OF WEATHER PAGE -->
+    <script>
+        var x = document.getElementById('location');
+        console.log(x);
+        window.onload = getLocation();
+        // function getLocation() {
+        //     if (navigator.geolocation) {
+        //         navigator.geolocation.getCurrentPosition(showPosition);
+        //     } else {
+        //         x.innerHTML = "Geolocation is not supported.";
+        //     }
+        // }
+
+        // function showPosition(position) {
+        //     console.log(position.coords.latitude)
+        //     console.log(position.coords.longitude);
+        //     var lat = position.coords.latitude;
+        //     var long = position.coords.longitude;
+        //     x.innerHTML = "Latitude: " + lat + "<br> Longitude: " + long;
+        // }
+        function getForecast(latitude, longitude) {
+                var api = '6dcf3a0482116df90e2b3c88cee44e8f';
+
+                $.ajax({
+                    url: 'http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&units=metric&' + 'appid=' + api,
+                    method: 'GET',
+
+                    success: function (data) {
+                        var tempr = data.main.temp;
+                        var location = data.name;
+                        var country = data.sys.country;
+                        console.log(tempr);
+                        console.log(location);
+                        $('#temp').text("It's currently " + tempr + '°C at your location (' + location + ', ' + country + ')');
+
+                        if (tempr <= 2) {
+                            $('#icywarning').text("ICE WARNING - BE CAREFUL ON THE ROADS");
+                        } else {
+                            $('#roadsarefine').text("The roads aren't icy. Drive safe.");
+                        }
+                    }
+                });
+            }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported.";
+            }
+        }
+
+        function showPosition(position) {
+            console.log(position.coords.latitude)
+            console.log(position.coords.longitude);
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            getForecast(lat, long);
+        }
+
+        
+        </script>
+    
     </body>
 
 {% endblock %}
