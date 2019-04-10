@@ -14,6 +14,7 @@
 <body>
         <div data-role="header" class="ui-bar">
             <h1>Place an Order</h1>
+            <h2>Welcome {{app.session.get('username')}}!</h2>
         </div>
         <div role="page" class="ui-content">
             <script>
@@ -174,20 +175,31 @@
                 </div>
                 <br>
                 <div id="total"></div>
-                <button class="ui-btn ui-btn-inline" id="checkout">Checkout</button>
+                {# <button class="ui-btn ui-btn-inline" id="checkout">Checkout</button> #}
+                <a href="#popupAddress" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Checkout</a>
                 
                 <div id="total"></div>
             </div>
+
+            <div data-role="popup" id="popupAddress" data-theme="a" class="ui-corner-all">
+				<form>
+					<div style="padding:10px 20px;">
+						<h3>Enter your address</h3>
+				        <input type="text" name="addr" id="addr" value="" placeholder="Address" data-theme="a">
+				    	<button type="submit" id="checkout"class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Submit Order</button>
+					</div>
+				</form>
+			</div>
         </div>
 
         <script>
             $("#checkout").click(function() {
-                $.post("/ordersubmit", {buy: orderarr, amount: totalPrice})
+                var addr = $("#addr").val();
+                $.post("/ordersubmit", {buy: orderarr, amount: totalPrice, address: addr})
                 .done(function() {
-                    alert("Thank you, your order has been submitted m8."); 
+                    alert("Thank you, your order has been submitted and is in preparation. YUM!!"); 
                 });                      
             });
         </script>
     </body>
-
 {% endblock %}

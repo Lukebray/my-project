@@ -36,6 +36,11 @@ class Buys
      */
     private $orderstatus;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Login", inversedBy="buys")
+     */
+    private $customerID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class Buys
     public function setOrderstatus(?string $orderstatus): self
     {
         $this->orderstatus = $orderstatus;
+
+        return $this;
+    }
+
+    public function getCustomerID(): ?Login
+    {
+        return $this->customerID;
+    }
+
+    public function setCustomerID(?Login $customerID): self
+    {
+        $this->customerID = $customerID;
 
         return $this;
     }
