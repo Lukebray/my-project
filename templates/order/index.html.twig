@@ -8,6 +8,7 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
@@ -16,6 +17,12 @@
             <h1>Place an Order</h1>
             <h2>Welcome {{app.session.get('username')}}!</h2>
         </div>
+        <div class="container">
+            <div class="row">
+                <a href="{{ path('index') }}" class="ui-btn ui-shadow ui-corner-all" id="logout">Logout</a>
+            </div>
+        </div>
+    
         <div role="page" class="ui-content">
             <script>
             class Product {

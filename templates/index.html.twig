@@ -47,7 +47,12 @@
     <h2>Register</h2>
     Username <input type="text" name="register_username" id="register_username" value="">
     Password <input type="password" name="register_pass" id="register_pass" value="">
-    AccType <input type="text" name="acctype" id="acctype" value="">
+    <label for="acctype">Account Type</label>
+    <select name="acctype" id="acctype">
+      <option value="customer">Customer</option>
+      <option value="driver">Driver</option>
+      <option value="manager">Manager</option>
+    </select>
     <button class="ui-btn" id="registerButton">Submit</button>
   </div>
 </div>
